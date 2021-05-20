@@ -131,6 +131,7 @@ class DazhongdianpingSpider(CrawlSpider):
                     one_item['area_code'] = pinyin.get(one_item['area'])
 
                     url = "".join(['http://www.dianping.com', area_url_list[area_index], 'g', category_id_list[cate_index]])
+                    global big_city_xx_cnt
                     print('大城市商圈分类url数量:\t'+str(big_city_xx_cnt))
                     print(one_item['city'])
                     print(one_item['category'])
@@ -140,7 +141,7 @@ class DazhongdianpingSpider(CrawlSpider):
                         url_set.add(url)
                     else:
                         continue
-                    global big_city_xx_cnt
+                    # global big_city_xx_cnt
                     big_city_xx_cnt += 1
                     request_list.append(Request(url,
                                                 method='GET',
@@ -183,7 +184,7 @@ class DazhongdianpingSpider(CrawlSpider):
                     one_item['area'] = area.strip()
                     one_item['area_code'] = pinyin.get(one_item['area'])
                     url = "".join(['http://www.dianping.com', category_url_list[cate_index], 'r', area_id_list[area_index]])
-
+                    global small_city_xx_cnt
                     small_city_xx_cnt += 1
                     print('大城市商圈分类url数量:\t'+str(small_city_xx_cnt))
                     print(url)
@@ -195,7 +196,7 @@ class DazhongdianpingSpider(CrawlSpider):
                         url_set.add(url)
                     else:
                         continue
-                    global small_city_xx_cnt
+                    # global small_city_xx_cnt
                     request_list.append(Request(url,
                                                 method='GET',
                                                 meta={'item': one_item},
@@ -216,7 +217,7 @@ class DazhongdianpingSpider(CrawlSpider):
         # 处理下一页
         next_url = response.xpath('//a[@class="next"]/@href').extract()
         if next_url:
-            next_url = 'http://www.dianping.com' + next_url[0]
+            next_url = 'http://www.dianping.com' + [0]
             one_item = deepcopy(item)
 
             yield Request(next_url,
